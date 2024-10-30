@@ -24,9 +24,16 @@ trait IndexTransformer
 					);
 
 					if (in_array('states', $fields)) {
+                        $stateList = array();
+                        foreach($country->states as $state){
+                            $stateList[] = [
+                                'id' => $state['id'],
+                                'name' => trans('world::state.' . $state['name']),
+                            ];
+                        }
 						$return = array_merge(
 							$return,
-							['states' => $country->states->map(fn ($state) => $state->only('id', 'name'))]
+							['states' => $stateList]
 						);
 					}
 
